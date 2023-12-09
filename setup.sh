@@ -31,7 +31,7 @@ echo -e '{\n  "port": 80,\n  "baseURL": "",\n  "address": "",\n  "log": "stdout"
 if [ `which docker-compose | wc -l` -eq 0 ]
 then
   echo "docker-compose is not installed.. Installing it"
-  curl -SL https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-armv6 -o /usr/local/bin/docker-compose
+  sudo curl -SL https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-armv6 -o /usr/local/bin/docker-compose
   sudo chmod a+x /usr/local/bin/docker-compose
   sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 else
