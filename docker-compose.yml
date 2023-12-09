@@ -10,7 +10,7 @@ services:
     user: ${UID}:${GID}
     ports:
       - 8000:8000
-      - 8010:81
+      - 81:8010
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/pi/docker/portainer:/data
@@ -28,7 +28,7 @@ services:
     ports:
       - 6881:6881
       - 6881:6881/udp
-      - 8020:82
+      - 82:8020
     volumes:
       - /home/pi/docker/qbittorrent:/config
       - /home/pi/docker/downloads:/downloads
@@ -43,7 +43,7 @@ services:
       - PGID=${GID}
       - TZ=Asia/Kolkata
     ports:
-      - 8030:83
+      - 83:8030
     volumes:
       - /home/pi/docker/downloads:/h5ai
       - /home/pi/docker/h5ai:/config
@@ -57,7 +57,7 @@ services:
       - PUID=${UID}
       - PGID=${GID}
     ports:
-      - 8040:84
+      - 84:8040
     volumes:
       - /home/pi/docker/downloads:/srv
       - /home/pi/docker/filebrowser/filebrowser.db:/database/filebrowser.db
