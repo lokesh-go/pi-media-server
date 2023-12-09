@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 
 services:
   portainer:
@@ -10,7 +10,7 @@ services:
     user: ${UID}:${GID}
     ports:
       - 8000:8000
-      - 81:8010
+      - 81:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/pi/docker/portainer:/data
@@ -28,7 +28,7 @@ services:
     ports:
       - 6881:6881
       - 6881:6881/udp
-      - 82:8020
+      - 82:8080
     volumes:
       - /home/pi/docker/qbittorrent:/config
       - /home/pi/docker/downloads:/downloads
@@ -57,11 +57,21 @@ services:
       - PUID=${UID}
       - PGID=${GID}
     ports:
-      - 84:8040
+      - 84:80
     volumes:
       - /home/pi/docker/downloads:/srv
       - /home/pi/docker/filebrowser/filebrowser.db:/database/filebrowser.db
       - /home/pi/docker/filebrowser/settings.json:/config/settings.json
+  gerberaserver:
+    image: gerbera/gerbera:edge
+    container_name: gerbera-dlna
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    restart: unless-stopped
+    networks:
+      - host
+    volumes:
+      - /home/pi/docker/downloads:/content:ro
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
