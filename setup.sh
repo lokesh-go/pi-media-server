@@ -22,6 +22,9 @@ fi
 
 # creating required directories
 mkdir -p /home/pi/docker/{portainer,qbittorrent,downloads,h5ai,filebrowser}
+touch /home/pi/docker/filebrowser/filebrowser.db
+touch /home/pi/docker/filebrowser/settings.json
+chmod 777 /home/pi/docker/filebrowser/filebrowser.db /home/pi/docker/filebrowser/settings.json
 
 # running docker-compose.yml file
 echo "Deploying containers"
