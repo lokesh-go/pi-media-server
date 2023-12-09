@@ -7,7 +7,6 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
     restart: unless-stopped
-    user: ${USERID}:${GROUPID}
     ports:
       - 8000:8000
       - 8081:9000
@@ -21,8 +20,6 @@ services:
       - com.centurylinklabs.watchtower.enable=true
     restart: unless-stopped
     environment:
-      - PUID=${USERID}
-      - PGID=${GROUPID}
       - TZ=Asia/Kolkata
       - WEBUI_PORT=82
     ports:
@@ -39,8 +36,6 @@ services:
       - com.centurylinklabs.watchtower.enable=true
     restart: unless-stopped
     environment:
-      - PUID=${USERID}
-      - PGID=${GROUPID}
       - TZ=Asia/Kolkata
     ports:
       - 8083:80
@@ -53,9 +48,6 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
     restart: unless-stopped
-    environment:
-      - PUID=${USERID}
-      - PGID=${GROUPID}
     ports:
       - 8084:80
     volumes:
@@ -75,7 +67,6 @@ services:
     image: containrrr/watchtower:latest
     container_name: watchtower
     restart: unless-stopped
-    user: ${USERID}:${GROUPID}
     environment:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_REMOVE_VOLUMES=true
