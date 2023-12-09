@@ -68,8 +68,7 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
     restart: unless-stopped
-    networks:
-      - host
+    network_mode: "host"
     volumes:
       - /home/pi/docker/downloads:/content:ro
   watchtower:
