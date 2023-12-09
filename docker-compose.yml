@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    restart: unless-stopped
+    user: $UID:$GID
+    ports:
+      - 8000:8000
+      - 8010:81
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/pi/docker/portainer:/data
+  torrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    restart: unless-stopped
+    environment:
+      - PUID=$(id -u)
+      - PGID=$(id -g)
+      - TZ=Asia/Kolkata
+      - WEBUI_PORT=82
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8020:82
+    volumes:
+      - /home/pi/docker/qbittorrent:/config
+      - /home/pi/docker/downloads:/downloads
+  filelist:
+    image: bin20088/h5ai:latest
+    container_name: h5ai
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    restart: unless-stopped
+    environment:
+      - PUID=$(id -u)
+      - PGID=$(id -g)
+      - TZ=Asia/Kolkata
+    ports:
+      - 8030:83
+    volumes:
+      - /home/pi/docker/downloads:/h5ai
+      - /home/pi/docker/h5ai:/config
+  filemanagement:
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    restart: unless-stopped
+    environment:
+      - PUID=$(id -u)
+      - PGID=$(id -g)
+    ports:
+      - 8040:84
+    volumes:
+      - /home/pi/docker/downloads:/srv
+      - /home/pi/docker/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /home/pi/docker/filebrowser/settings.json:/config/settings.json
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    user: $UID:$GID
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_REMOVE_VOLUMES=true
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+      - WATCHTOWER_INCLUDE_STOPPED=true
+      - WATCHTOWER_REVIVE_STOPPED=true
+      - WATCHTOWER_ROLLING_RESTART=true
+      - WATCHTOWER_LABEL_ENABLE=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
