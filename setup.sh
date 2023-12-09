@@ -40,4 +40,6 @@ fi
 
 # running docker-compose.yml file
 echo "Deploying containers using docker-compose"
-USERID="$(id -u)" GROUPID="$(id -g)" docker-compose up -d
+export USERID="$(id -u)"
+export GROUPID="$(id -g)"
+sudo docker-compose up -d
