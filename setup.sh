@@ -24,7 +24,7 @@ fi
 mkdir -p /home/pi/docker/{portainer,qbittorrent,downloads,h5ai,filebrowser}
 touch /home/pi/docker/filebrowser/filebrowser.db
 touch /home/pi/docker/filebrowser/settings.json
-chmod 777 /home/pi/docker/filebrowser/filebrowser.db /home/pi/docker/filebrowser/settings.json
+sudo chmod ugo+rwx /home/pi/docker/filebrowser/filebrowser.db /home/pi/docker/filebrowser/settings.json
 echo -e '{\n  "port": 80,\n  "baseURL": "",\n  "address": "",\n  "log": "stdout",\n  "database": "/database/filebrowser.db",\n  "root": "/srv",\n  "noauth": true\n}' > /home/pi/docker/filebrowser/settings.json
 
 # check if docker-compose is installed already
@@ -40,6 +40,4 @@ fi
 
 # running docker-compose.yml file
 echo "Deploying containers using docker-compose"
-export USERID="$(id -u)"
-export GROUPID="$(id -g)"
 sudo docker-compose up -d
