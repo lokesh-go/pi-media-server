@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Asia/Kolkata
-      - WEBUI_PORT=82
+      - WEBUI_PORT=8082
     ports:
       - 6881:6881
       - 6881:6881/udp
