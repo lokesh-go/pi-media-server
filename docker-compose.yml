@@ -43,7 +43,7 @@ services:
       - PGID=${GID}
       - TZ=Asia/Kolkata
     ports:
-      - 83:8030
+      - 83:80
     volumes:
       - /home/pi/docker/downloads:/h5ai
       - /home/pi/docker/h5ai:/config
